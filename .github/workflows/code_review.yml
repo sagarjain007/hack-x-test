@@ -1,0 +1,25 @@
+name: SpiderLint AI Reviewer
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Call SpiderLint AI Reviewer
+      env:
+        REPO_NAME: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.number }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BACKEND_URL: ${{ secrets.BACKEND_URL }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        curl -X POST "$BACKEND_URL/review" \
+          -H "Content-Type: application/json" \
+          -d "{\"repo\": \"$REPO_NAME\", \"pr\": $PR_NUMBER, \"github_token\": \"$GITHUB_TOKEN\", \"openai_api_key\": \"$OPENAI_API_KEY\"}"
