@@ -1,4 +1,4 @@
-name: 'Code Reviewer'
+name: 'super-ai-linter'
 description: 'A custom GitHub Action to review code for best practices and common issues.'
 author: 'Your Name <your.email@example.com>'
 branding:
