@@ -19,7 +19,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BACKEND_URL: ${{ secrets.BACKEND_URL }}
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        CUSTOM_INSTRUCTION: ${{ secrets.CUSTOM_INSTRUCTION || '' }}
       run: |
         curl -X POST "$BACKEND_URL/review" \
           -H "Content-Type: application/json" \
-          -d "{\"repo\": \"$REPO_NAME\", \"pr\": $PR_NUMBER, \"github_token\": \"$GITHUB_TOKEN\", \"openai_api_key\": \"$OPENAI_API_KEY\"}"
+          -d "{\"repo\": \"$REPO_NAME\", \"pr\": $PR_NUMBER, \"github_token\": \"$GITHUB_TOKEN\", \"openai_api_key\": \"$OPENAI_API_KEY\", \"custom_instruction\": \"$CUSTOM_INSTRUCTION\"}"
